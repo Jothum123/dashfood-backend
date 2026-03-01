@@ -4,7 +4,7 @@ const supabase = require('../config/supabase');
  * Update order status with authoritative timestamps and real-time broadcast.
  */
 const updateOrderStatus = async (req, res) => {
-    const { id } = req.params;
+    const id = req.params.id || req.body.orderId;
     const { status, reason } = req.body;
 
     console.log(`[Order] Authoritative Update: ${id} -> ${status}`);
