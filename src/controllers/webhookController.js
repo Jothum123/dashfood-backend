@@ -11,14 +11,27 @@ const handleNewOrder = async (req, res) => {
     console.log("[Webhook] External Order Received:", orderData.customer);
 
     try {
+        // Match store and organization
+        let { data: store } = await supabase
+            .from('stores')
+            .select('id, organization_id')
+            .eq('id', orderData.store_id)
+            .maybeSingle();
+
+        if (!store) {
+            // Fallback to first available store for testing
+            const { data: firstStore } = await supabase.from('stores').select('id, organization_id').limit(1).single();
+            store = firstStore;
+        }
+
         const { data, error } = await supabase
             .from('orders')
             .insert({
                 customer_name: orderData.customer,
                 total_amount: orderData.amount,
                 status: 'new',
-                store_id: orderData.store_id || '476e91d7-3b2a-4e83-680a-7f61ff95bf3c',
-                tenant_id: 'cfd01e92-8b1d-4afd-8d27-0a18aa8564ed',
+                store_id: store?.id,
+                tenant_id: store?.organization_id,
                 items: orderData.items || []
             })
             .select()
@@ -53,7 +66,7 @@ const handleNewOrder = async (req, res) => {
         res.status(200).json({ success: true, orderId: data.id });
     } catch (err) {
         console.error("[Webhook] Insert Error:", err.message);
-        res.status(500).json({ error: "Failed to sync to Supabase" });
+        res.status(500).json({ error: "Failed to sync to Supabase", details: err.message });
     }
 };
 

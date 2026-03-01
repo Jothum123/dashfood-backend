@@ -21,7 +21,7 @@ const startSlaMonitor = () => {
                 // SLA Breach Alert
                 if (elapsed >= breachMin && order.status !== 'ready') {
                     const { data: existing } = await supabase
-                        .from('issues')
+                        .from('order_issues')
                         .select('id')
                         .eq('order_id', order.id)
                         .eq('type', 'late')
@@ -29,7 +29,7 @@ const startSlaMonitor = () => {
 
                     if (!existing) {
                         const { data: newIssue } = await supabase
-                            .from('issues')
+                            .from('order_issues')
                             .insert({
                                 order_id: order.id,
                                 type: 'late',
@@ -51,7 +51,7 @@ const startSlaMonitor = () => {
                     const shelfElapsed = (now - new Date(order.ready_at)) / 60000;
                     if (shelfElapsed >= 20) {
                         const { data: existing } = await supabase
-                            .from('issues')
+                            .from('order_issues')
                             .select('id')
                             .eq('order_id', order.id)
                             .eq('type', 'pickup_delay')
@@ -59,7 +59,7 @@ const startSlaMonitor = () => {
 
                         if (!existing) {
                             const { data: newIssue } = await supabase
-                                .from('issues')
+                                .from('order_issues')
                                 .insert({
                                     order_id: order.id,
                                     type: 'pickup_delay',

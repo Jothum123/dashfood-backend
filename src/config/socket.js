@@ -14,8 +14,11 @@ const initSocket = (server) => {
         console.log('[Socket] Client connected:', socket.id);
 
         socket.on('join_store', (storeId) => {
-            socket.join(`store_${storeId}`);
-            console.log(`[Socket] Client joined store: store_${storeId}`);
+            const room = `store_${storeId}`;
+            socket.join(room);
+            console.log(`[Socket] Client ${socket.id} joined store: ${room}`);
+            // Send confirmation back
+            socket.emit('joined', { room });
         });
 
         socket.on('disconnect', () => {

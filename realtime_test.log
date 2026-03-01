@@ -1,0 +1,20 @@
+--- START TEST ---
+2026-03-01T07:49:33.331Z - ✅ Connected to local socket server
+2026-03-01T07:49:33.337Z - 📡 Event: joined - [{"room":"store_1a143cec-2215-43ff-be67-c7dc88506fc2"}]
+2026-03-01T07:49:33.338Z - 🏁 Joined Room Confirmation: {"room":"store_1a143cec-2215-43ff-be67-c7dc88506fc2"}
+2026-03-01T07:49:50.148Z - 📡 Event: newIncomingOrder - [{"id":"026bdc18-8199-4e18-8340-5c454a233195","store_id":"1a143cec-2215-43ff-be67-c7dc8506fc2a","tenant_id":"00b27622-3b6b-4d3b-b3fd-d04c1a7158dc","customer_name":"Realtime Test 9","total_amount":9,"status":"new","items":[],"accepted_at":null,"ready_at":null,"completed_at":null,"created_at":"2026-03-01T07:49:49.088295+00:00","updated_at":"2026-03-01T07:49:49.088295+00:00"}]
+2026-03-01T07:49:50.150Z - ⚡ Realtime Event Received: newIncomingOrder
+2026-03-01T07:49:50.150Z - {
+  "id": "026bdc18-8199-4e18-8340-5c454a233195",
+  "store_id": "1a143cec-2215-43ff-be67-c7dc8506fc2a",
+  "tenant_id": "00b27622-3b6b-4d3b-b3fd-d04c1a7158dc",
+  "customer_name": "Realtime Test 9",
+  "total_amount": 9,
+  "status": "new",
+  "items": [],
+  "accepted_at": null,
+  "ready_at": null,
+  "completed_at": null,
+  "created_at": "2026-03-01T07:49:49.088295+00:00",
+  "updated_at": "2026-03-01T07:49:49.088295+00:00"
+}
